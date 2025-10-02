@@ -20,9 +20,7 @@ export const CarouselMovie = () => {
             </CarouselItem>
           );
         })}
-        <div className="absolute">bullet</div>
       </CarouselContent>
-
       <CarouselPrevious className="ml-20" />
       <CarouselNext className="mr-20" />
     </Carousel>
