@@ -6,7 +6,6 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <div className="flex items-center gap-3">
       <input
-        placeholder="      Search.."
         type={type}
         data-slot="input"
         className={cn(

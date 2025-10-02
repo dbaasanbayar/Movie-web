@@ -58,7 +58,7 @@ export const NavigationBar = () => {
             </g>
           </svg>
           {/* <img className="absolute p-4" src="Vector.png" alt="" /> */}
-          <Input className="relative ml-1" />
+          <Input className="relative pl-10" placeholder="Search.." />
         </div>
       </div>
       <div>
