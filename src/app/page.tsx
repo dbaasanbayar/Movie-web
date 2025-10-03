@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { NavigationBar } from "./_components/navigationbar";
 import { CarouselMovie } from "./_components/carousel";

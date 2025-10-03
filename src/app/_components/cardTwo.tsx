@@ -8,14 +8,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 type MoviePropsType = {
-  moviesPop: {
+  moviePop: {
     name: string;
     image: string;
     rate: number;
   };
 };
 
-export const CardTwo = (props: { moviePop: MoviePropsType }) => {
+export const CardTwo = (props: MoviePropsType) => {
   const { moviePop } = props;
   return (
     <Card className="bg-amber-300 pt-0 pb-0 w-[230px] h-[439px] overflow-hidden">

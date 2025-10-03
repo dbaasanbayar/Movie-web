@@ -1,6 +1,44 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+
+const genres = [
+  "Action",
+  "Adventure",
+  "Animation",
+  "Biography",
+  "Comedy",
+  "Crime",
+  "Documentary",
+  "Drama",
+  "Family",
+  "Fantasy",
+  "Film-Noir",
+  "Game-Show",
+  "History",
+  "Horror",
+  "Music",
+  "Musical",
+  "Mystery",
+  "News",
+  "Reality-TV",
+  "Romance",
+  "Sci-Fi",
+  "Short",
+  "Sport",
+  "Talk-Show",
+  "Thriller",
+  "War",
+  "Western",
+];
 
 export const NavigationBar = () => {
   return (
@@ -23,23 +61,52 @@ export const NavigationBar = () => {
         <h1>Movie Z</h1>
       </div>
       <div className="flex gap-3 items-center">
-        <Button>
-          <svg
-            width="16"
-            height="17"
-            viewBox="0 0 16 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 6.5L8 10.5L12 6.5"
-              stroke="#18181B"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <p>Genre</p>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex gap-2 items-center p py-1 px-2 border-1 rounded-md">
+            <svg
+              width="16"
+              height="17"
+              viewBox="0 0 16 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6.5L8 10.5L12 6.5"
+                stroke="#18181B"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <p>Genre</p>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="px-5 py-5 ">
+            <DropdownMenuLabel>See lists of movies by genre</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <div className="flex w-[577px] py-4 gap-4 flex-wrap ">
+              {genres.map((genre, i) => {
+                return (
+                  <DropdownMenuItem className="border-1 w-fit">
+                    <p key={i}>{genre}</p>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6 12L10 8L6 4"
+                        stroke="#09090B"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </DropdownMenuItem>
+                );
+              })}
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <div className="flex items-center">
           <svg
             className="absolute ml-4"
