@@ -1,63 +1,24 @@
-import { CardThree } from "@/app/_components/cardthree";
 import { Button } from "@/components/ui/button";
-const moviesTR: MovieType[] = [
-  {
-    name: "Pulp Fiction",
-    image: "/_topratedmovielist/pulpfiction.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Lord of the Rings: Fellowship of the Kings",
-    image: "/_topratedmovielist/lotr-1.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Good, the Bad and the Ugly",
-    image: "/_topratedmovielist/gbu.png",
-    rate: 6.9,
-  },
-  {
-    name: "Forrest Gump",
-    image: "/_topratedmovielist/forestgump.png",
-    rate: 6.9,
-  },
-  {
-    name: "Fight Club",
-    image: "/_topratedmovielist/fightclub.png",
-    rate: 6.9,
-  },
-  {
-    name: "Saving Private Ryan",
-    image: "/_topratedmovielist/pirateryan.png",
-    rate: 6.9,
-  },
-  {
-    name: "City of God",
-    image: "/_topratedmovielist/cityofgod.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Green Mile",
-    image: "/_topratedmovielist/greenmile.png",
-    rate: 6.9,
-  },
-  {
-    name: "Life is Beautiful",
-    image: "/_topratedmovielist/lifeisbeautiful.png",
-    rate: 6.9,
-  },
-  {
-    name: "Terminator 2: Judgement Day",
-    image: "/_topratedmovielist/terminator-2.png",
-    rate: 6.9,
-  },
-];
-type MovieType = {
-  name: string;
-  image: string;
-  rate: number;
-};
-export const TopRatedMovie = () => {
+import { MovieType } from "@/lib/type";
+import axios from "axios";
+import { Cards } from "@/app/_components/card";
+
+const tokenFromTMDB =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDE5YTkwYzFjNDE4NTZiZTcwNzk4YjQ5ZTQ3YjIzYyIsIm5iZiI6MTc1OTQ4NTQyMi4yOSwic3ViIjoiNjhkZjlkZWVkNWE3MGM0NGNkM2I4Yzk5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ijRLOMXEhM1v5dDDUFobPzRBus-kS8GEjaJ2S09ruO0";
+export const TopRatedMovie = async () => {
+  const TopRatedMovies = async () => {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+      {
+        headers: {
+          Authorization: `Bearer ${tokenFromTMDB}`,
+        },
+      }
+    );
+    return response.data;
+  };
+  const TopRatedMovieResults = await TopRatedMovies();
+
   return (
     <div>
       <div className="flex justify-between items-center mt-[44px] mb-[32px] ">
@@ -80,9 +41,9 @@ export const TopRatedMovie = () => {
           </svg>
         </Button>
       </div>
-      <div className="flex flex-wrap gap-8 ">
-        {moviesTR.map((movieTR, index) => {
-          return <CardThree key={index} movieTR={movieTR}></CardThree>;
+      <div className="flex flex-wrap gap-8">
+        {TopRatedMovieResults.results.slice(0 - 10).map((movie: MovieType) => {
+          return <Cards movie={movie} key={movie.id} />;
         })}
       </div>
     </div>

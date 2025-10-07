@@ -1,63 +1,23 @@
-import { CardTwo } from "@/app/_components/cardTwo";
 import { Button } from "@/components/ui/button";
-const moviesPop: MovieType[] = [
-  {
-    name: "The Shawshank Redemption",
-    image: "/PopMovieList/shawshank.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Godfather",
-    image: "/PopMovieList/thegodfather.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Dark Knight",
-    image: "/PopMovieList/darkknight.png",
-    rate: 6.9,
-  },
-  {
-    name: "12 Angry Men",
-    image: "/PopMovieList/12angrymen.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Lord of the Rings: The  Return of the King",
-    image: "/PopMovieList/thelotr.png",
-    rate: 6.9,
-  },
-  {
-    name: "Interstellar",
-    image: "/PopMovieList/interstellar.png",
-    rate: 6.9,
-  },
-  {
-    name: "Se7en",
-    image: "/PopMovieList/seven.png",
-    rate: 6.9,
-  },
-  {
-    name: "It’s a Wonderful life",
-    image: "/PopMovieList/itiswonderful.png",
-    rate: 6.9,
-  },
-  {
-    name: "Seven samurai",
-    image: "/PopMovieList/sevensamurai.png",
-    rate: 6.9,
-  },
-  {
-    name: "The Silence of the Lambs",
-    image: "/PopMovieList/silenceoflambs.png",
-    rate: 6.9,
-  },
-];
-type MovieType = {
-  name: string;
-  image: string;
-  rate: number;
-};
-export const PopularMovie = () => {
+import { MovieType } from "@/lib/type";
+import { Cards } from "@/app/_components/card";
+import axios from "axios";
+
+export const PopularMovie = async () => {
+  const tokenFromTMDB =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDE5YTkwYzFjNDE4NTZiZTcwNzk4YjQ5ZTQ3YjIzYyIsIm5iZiI6MTc1OTQ4NTQyMi4yOSwic3ViIjoiNjhkZjlkZWVkNWE3MGM0NGNkM2I4Yzk5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ijRLOMXEhM1v5dDDUFobPzRBus-kS8GEjaJ2S09ruO0";
+  const PopularMovies = async () => {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+      {
+        headers: {
+          authorization: ` Bearer ${tokenFromTMDB}`,
+        },
+      }
+    );
+    return response.data;
+  };
+  const PopularMovieResults = await PopularMovies();
   return (
     <div>
       <div className="flex justify-between items-center mt-[44px] mb-[32px] ">
@@ -81,8 +41,8 @@ export const PopularMovie = () => {
         </Button>
       </div>
       <div className="flex flex-wrap gap-8 ">
-        {moviesPop.map((moviePop, index) => {
-          return <CardTwo key={index} moviePop={moviePop}></CardTwo>;
+        {PopularMovieResults.results.slice(0 - 10).map((movie: MovieType) => {
+          return <Cards key={movie.id} movie={movie} />;
         })}
       </div>
     </div>

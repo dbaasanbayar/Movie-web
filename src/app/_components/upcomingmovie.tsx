@@ -1,39 +1,22 @@
-import { CardOne } from "@/app/_components/cardOne";
+import { Cards } from "@/app/_components/card";
 import { Button } from "@/components/ui/button";
-const moviesUp: MovieType[] = [
-  { name: "Dear Santa", image: "/movieList/dear_santa.png", rate: 6.9 },
-  {
-    name: "How To Train Your Dragon Live Action",
-    image: "/movieList/how_to_dragon.png",
-    rate: 6.9,
-  },
-  { name: "Alien Romulus", image: "/movieList/alien.png", rate: 6.9 },
-  { name: "From the Ashes", image: "/movieList/from_the_ashes.png", rate: 6.9 },
-  { name: "Space Dogg", image: "/movieList/space_dog.png", rate: 6.9 },
-  { name: "The Order", image: "/movieList/the_order.png", rate: 6.9 },
-  { name: "Y2K", image: "/movieList/y2k.png", rate: 6.9 },
-  {
-    name: "Solo Leveling: ReAwakening",
-    image: "/movieList/solo_leveling.png",
-    rate: 6.9,
-  },
-  {
-    name: "Get Away",
-    image: "/movieList/get_away.png",
-    rate: 6.9,
-  },
-  {
-    name: "Sonic the Hedgehog 3",
-    image: "/movieList/sonic-3.png",
-    rate: 6.9,
-  },
-];
-type MovieType = {
-  name: string;
-  image: string;
-  rate: number;
-};
-export const UpComingMovie = () => {
+import axios from "axios";
+import { MovieType } from "@/lib/type";
+
+export const UpComingMovie = async () => {
+  const upComingMovies = async () => {
+    const data = await axios.get(
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+      {
+        headers: {
+          authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDE5YTkwYzFjNDE4NTZiZTcwNzk4YjQ5ZTQ3YjIzYyIsIm5iZiI6MTc1OTQ4NTQyMi4yOSwic3ViIjoiNjhkZjlkZWVkNWE3MGM0NGNkM2I4Yzk5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ijRLOMXEhM1v5dDDUFobPzRBus-kS8GEjaJ2S09ruO0`,
+        },
+      }
+    );
+    return data.data;
+  };
+  const getUpComingMovie = await upComingMovies();
+
   return (
     <div>
       <div className="flex justify-between items-center mt-[44px] mb-[32px] ">
@@ -57,8 +40,8 @@ export const UpComingMovie = () => {
         </Button>
       </div>
       <div className="flex flex-wrap gap-8 ">
-        {moviesUp.map((movieUp, index) => {
-          return <CardOne key={index} movieUp={movieUp}></CardOne>;
+        {getUpComingMovie.results.slice(0 - 10).map((movie: MovieType) => {
+          return <Cards key={movie.id} movie={movie}></Cards>;
         })}
       </div>
     </div>
