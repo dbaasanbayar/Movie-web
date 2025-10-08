@@ -9,20 +9,12 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-
-const tokenFromTMDB =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDE5YTkwYzFjNDE4NTZiZTcwNzk4YjQ5ZTQ3YjIzYyIsIm5iZiI6MTc1OTQ4NTQyMi4yOSwic3ViIjoiNjhkZjlkZWVkNWE3MGM0NGNkM2I4Yzk5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ijRLOMXEhM1v5dDDUFobPzRBus-kS8GEjaJ2S09ruO0";
+import { axiosInstance } from "@/app/_components/functions";
 
 export const CarouselMovie = async () => {
   const getPopularMovies = async () => {
-    const response = await axios.get(
-      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-
-      {
-        headers: {
-          Authorization: `Bearer ${tokenFromTMDB}`,
-        },
-      }
+    const response = await axiosInstance.get(
+      "/movie/popular?language=en-US&page=1"
     );
     return response.data;
   };
