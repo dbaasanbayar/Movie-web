@@ -35,3 +35,26 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # Movie-web
+
+## Todo
+
+- [x] next app init
+- [ ] shadcn setup
+- [ ] make components
+- [ ] build sections of page by components
+    - [ ] navigation 
+    - [ ] carousel
+    - [ ] cards
+    - [ ] footer
+- [ ] get datas by axios fetch
+- [ ] dynamic pages 
+- [ ] movie details
+    - [ ] header 
+    - [ ] trailers 
+    - [ ] credits
+    - [ ] similar movie suggestion 
+- [ ] search section
+- [ ] genres section and page with specific genre
+    
+
+

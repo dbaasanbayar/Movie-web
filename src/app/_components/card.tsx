@@ -12,11 +12,10 @@ import Link from "next/link";
 type MoviePropsType = {
   movie: MovieType;
 };
-
 export const Cards = ({ movie }: { movie: MovieType }) => {
-  const { poster_path, vote_average, title } = movie;
+  const { poster_path, vote_average, title, id } = movie;
   return (
-    <Link href={"/details"}>
+    <Link href={`/details/${id}`}>
       <Card className="bg-amber-300 pt-0 pb-0 w-[230px] h-[439px] overflow-hidden">
         <CardContent className="bg-gray-100 p-0 flex flex-col w-[230px] h-[439px] ">
           <img
