@@ -1,4 +1,4 @@
-import { crewType, genresType, MovieType } from "@/lib/type"
+import { crewType, genresType, MovieType, castType } from "@/lib/type"
 
 import { axiosInstance } from "@/app/_components/functions"
 
@@ -12,9 +12,9 @@ export async function MovieGenre ({movieData} : {movieData : MovieType} ) {
  
     const credits = await getCredits(id)
     console.log(credits, "REsponSE")
-    const directors = credits.crew.filter((director: crewType) => director.job === "Producer");
-    // const topCast = cast.slice(0, 3);
-   
+    const directors = credits.crew.filter((director: crewType) => director.job === "Director");
+    const writers = credits.crew.filter((writer: crewType) => writer.job === "Screenplay" && "Writer"); 
+    console.log()
     return(
         <div>
             <div className="flex gap-3">
@@ -24,11 +24,23 @@ export async function MovieGenre ({movieData} : {movieData : MovieType} ) {
             </div>
             <p className="mb-5 mt-5">{overview}</p>
             <div>
-                <div>
-                    {directors.map((director : crewType) => {
-                        <p>{director.job}</p>
+                <div className="flex gap-2">
+                    <p>Director:</p>
+                         {directors.map((director : crewType) => {
+                        return <p key={director.name}>{director.name}</p>
                     })}
-                    <p></p>
+                </div>
+                <div className="flex gap-2">
+                    <p>Writers:</p> 
+                        {writers.map((writer: crewType) => {
+                            return <p key={writer.name}>{writer.name}</p>
+                        })}
+                </div>
+                <div className="flex gap-2">
+                    <p>Casts:</p>
+                    {credits.cast.splice(0,5).map((casting: castType) => {
+                      return <p key={casting.name}>{casting.name}</p>
+                    })}
                 </div>
             </div>
         </div>
