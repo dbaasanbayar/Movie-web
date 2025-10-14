@@ -38,7 +38,7 @@ export const TopRatedMovie = async () => {
         </Link>
       </div>
       <div className="flex flex-wrap gap-8">
-        {TopRatedMovieResults.results.slice(0 - 10).map((movie: MovieType) => {
+        {TopRatedMovieResults.results.splice(10, 20).map((movie: MovieType) => {
           return <Cards movie={movie} key={movie.id} />;
         })}
       </div>

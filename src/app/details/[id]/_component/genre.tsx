@@ -6,15 +6,14 @@ export async function MovieGenre ({movieData} : {movieData : MovieType} ) {
     const {genres, overview, id} = movieData
 
     const getCredits = async (id: number) => { 
-        const response = await axiosInstance.get(`/movie/${id}/credits?language=en-US` );
+        const response = await axiosInstance.get(`/movie/${id}/credits?language=en-US`);
         return response.data
     }
- 
     const credits = await getCredits(id)
-    console.log(credits, "REsponSE")
+
     const directors = credits.crew.filter((director: crewType) => director.job === "Director");
     const writers = credits.crew.filter((writer: crewType) => writer.job === "Screenplay" && "Writer"); 
-    console.log()
+   
     return(
         <div>
             <div className="flex gap-3">
