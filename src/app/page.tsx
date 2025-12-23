@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { CarouselMovie } from "./_components/carousel";
 import { UpComingMovie } from "./_components/upcomingmovie";
 import { PopularMovie } from "./_components/popularmovie";

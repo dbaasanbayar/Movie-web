@@ -9,9 +9,6 @@ import {
 } from "@/components/ui/card";
 import { MovieType } from "@/lib/type";
 import Link from "next/link";
-type MoviePropsType = {
-  movie: MovieType;
-};
 export const Cards = ({ movie }: { movie: MovieType }) => {
   const { poster_path, vote_average, title, id } = movie;
   return (

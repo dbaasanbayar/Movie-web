@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { MovieType } from "@/lib/type";
-import axios from "axios";
 import { Cards } from "@/app/_components/card";
 import { axiosInstance } from "./functions";
 import Link from "next/link";
@@ -9,6 +8,7 @@ export const TopRatedMovie = async () => {
     const response = await axiosInstance.get(
       "/movie/top_rated?language=en-US&page=1"
     );
+    // console.log("Your API Key is:", axiosInstance);
     return response.data;
   };
   const TopRatedMovieResults = await TopRatedMovies();

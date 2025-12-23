@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MovieType } from "@/lib/type";
 import { Cards } from "@/app/_components/card";
-import axios from "axios";
 import { axiosInstance } from "@/app/_components/functions";
 import Link from "next/link";
 
@@ -39,7 +38,7 @@ export const PopularMovie = async () => {
       </div>
       <div className="flex flex-wrap gap-8 ">
         {PopularMovieResults.results.splice(5, 10).map((movie: MovieType) => {
-          return <Cards key={movie.id} movie={movie} />
+          return <Cards key={movie.id} movie={movie} />;
         })}
       </div>
     </div>
