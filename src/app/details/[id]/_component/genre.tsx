@@ -5,7 +5,7 @@ import { axiosInstance } from "@/app/_components/functions";
 export async function MovieGenre({ movieData }: { movieData: MovieType }) {
   const { genres, overview, id } = movieData;
 
-  const getCredits = async (movieId: number) => {
+  const getCredits = async (id: string) => {
     const response = await axiosInstance.get(
       `/movie/${id}/credits?language=en-US`
     );

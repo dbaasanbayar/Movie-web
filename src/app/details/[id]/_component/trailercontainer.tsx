@@ -1,5 +1,6 @@
 import { MovieType } from "@/lib/type";
 import { Button } from "@/components/ui/button";
+import { IconPlay } from "@/app/_components/assets/icon-play";
 
 export const TrailerContainer = ({ movieData }: { movieData: MovieType }) => {
   const { backdrop_path, poster_path } = movieData;
@@ -18,20 +19,7 @@ export const TrailerContainer = ({ movieData }: { movieData: MovieType }) => {
         </div>
         <div className="flex gap-3 absolute mb-[24px] ml-[24px] text-white items-center">
           <Button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M3.33301 2L12.6663 8L3.33301 14V2Z"
-                stroke="black"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <IconPlay />
           </Button>
           <p>Play trailer </p>
           <p></p>

@@ -9,9 +9,6 @@ const MovieDetails = async ({ params }: idProps) => {
   const { id } = await params;
   const response = await axiosInstance.get(`/movie/${id}?language=en-US`);
   const movieData = response.data;
-  console.log("need to check id number or string", movieData);
-  // console.log("id that i caught", movieData.id);
-
   return (
     <div className="pl-[180px] w-full pr-[180px] flex flex-col gap-6">
       <MoviePageHeader movieData={movieData} />
@@ -22,3 +19,13 @@ const MovieDetails = async ({ params }: idProps) => {
   );
 };
 export default MovieDetails;
+
+//server client
+//Vercel, Hereglegchiin Pc-Utas
+//
+
+// Asynchronus ->
+
+// console.log("1")
+// await console.log("2")
+// console.log("3")

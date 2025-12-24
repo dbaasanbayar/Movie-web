@@ -15,6 +15,7 @@ import { ArrowDown, ArrowRight, ChevronRight } from "lucide-react";
 import { ArrowDownn } from "./assets/arrow-down";
 import { IconSearch } from "./assets/icon-search";
 import { IconMoon } from "./assets/icon-moon";
+import { ChevronRightt } from "./assets/chevron-right";
 
 const genres = [
   "Action",
@@ -46,7 +47,17 @@ const genres = [
   "Western",
 ];
 
+const mockGenres = [
+  {
+    id: 1,
+    genre: "Action",
+  },
+];
+
 export const NavigationBar = () => {
+  // const [genres, setGen]
+
+  // const getGenres =()=>{}
   return (
     <div className="h-[59px] flex justify-between items-center px-4">
       <Link
@@ -55,7 +66,9 @@ export const NavigationBar = () => {
       >
         <div className="flex items-center gap-2">
           <IconMovie />
-          <h2>Movie Z</h2>
+          <h2 className="text-[16px] font-inter leading-[20px] tracking-[0.32px] text-[#4338CA] font-[700]">
+            Movie Z
+          </h2>
         </div>
       </Link>
       <div className="flex gap-3 items-center">
@@ -72,7 +85,7 @@ export const NavigationBar = () => {
                 return (
                   <DropdownMenuItem key={i} className="border-1 w-fit">
                     <span>{genre}</span>
-                    <ChevronRight />
+                    <ChevronRightt />
                   </DropdownMenuItem>
                 );
               })}

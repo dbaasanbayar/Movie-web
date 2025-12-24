@@ -1,15 +1,15 @@
-export const ChevronRightt = () => {
+export const IconPlay = () => {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"
       viewBox="0 0 16 16"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6 12L10 8L6 4"
-        stroke="#09090B"
+        d="M3.33301 2L12.6663 8L3.33301 14V2Z"
+        stroke="black"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

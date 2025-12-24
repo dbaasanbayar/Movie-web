@@ -2,7 +2,7 @@ export type MovieType = {
   adult?: boolean;
   backdrop_path: string;
   genres: genresType[];
-  id: number;
+  id: string;
   original_language: string;
   overview: string;
   popularity: number;
@@ -15,17 +15,17 @@ export type MovieType = {
 };
 export type genresType = {
   name: string;
-  id: number;
+  id: string;
 };
 
 export type initType = {
   crew: crewType[];
   cast: castType[];
-  id?: number;
+  id?: string;
 };
 
 export type crewType = {
-  id: number;
+  id: string;
   name: string;
   gender: string;
   job: string;
@@ -33,7 +33,7 @@ export type crewType = {
 
 export type castType = {
   [x: string]: any;
-  id: number;
+  id: string;
   name: string;
   job: string;
   order: number;
