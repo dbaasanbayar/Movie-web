@@ -11,15 +11,12 @@ export default async function UpComingMoviesPage({
 }) {
   const sp = await searchParams;
   const currentPage = Number(sp.page) || 1;
-
   const response = await axiosInstance.get(
     `/movie/upcoming?language=en-US&page=${currentPage}`
   );
-  // console.log(response.data.results);
 
   const upcomingMovies: MovieType[] = response.data.results;
   const totalPages = response.data.total_pages;
-
   return (
     <div className="flex flex-col mx-auto gap-8 px-[80px]">
       <h2 className="text-[#09090B] font-inter text-[30px] font-semibold leading-[36px] tracking-[-0.75px]">

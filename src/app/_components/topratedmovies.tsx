@@ -3,12 +3,12 @@ import { MovieType } from "@/lib/type";
 import { Cards } from "@/app/_components/card";
 import { axiosInstance } from "./functions";
 import Link from "next/link";
+import { ArrowRigth } from "./assets/arrow-right";
 export const TopRatedMovie = async () => {
   const TopRatedMovies = async () => {
     const response = await axiosInstance.get(
       "/movie/top_rated?language=en-US&page=1"
     );
-    // console.log("Your API Key is:", axiosInstance);
     return response.data;
   };
   const TopRatedMovieResults = await TopRatedMovies();
@@ -17,23 +17,10 @@ export const TopRatedMovie = async () => {
     <div>
       <div className="flex justify-between items-center mt-[44px] mb-[32px] ">
         <h2 className="text-[24px] font-semibold ">Top Rated</h2>
-        <Link href={"/details"}>
+        <Link href={"/top-rated"}>
           <Button>
             See more
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M3.33398 8.00004H12.6673M12.6673 8.00004L8.00065 3.33337M12.6673 8.00004L8.00065 12.6667"
-                stroke="#18181B"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ArrowRigth />
           </Button>
         </Link>
       </div>

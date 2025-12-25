@@ -11,7 +11,6 @@ export default async function SimilarMoviesPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ page?: string }>;
 }) {
-  console.log("--- DEBUG START ---");
   const resolvedParams = await params;
   const { id } = resolvedParams;
   const sp = await searchParams;

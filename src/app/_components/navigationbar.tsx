@@ -11,48 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IconMovie } from "./assets/icon-movie";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ChevronRight } from "lucide-react";
 import { ArrowDownn } from "./assets/arrow-down";
 import { IconSearch } from "./assets/icon-search";
 import { IconMoon } from "./assets/icon-moon";
 import { ChevronRightt } from "./assets/chevron-right";
-
-const genres = [
-  "Action",
-  "Adventure",
-  "Animation",
-  "Biography",
-  "Comedy",
-  "Crime",
-  "Documentary",
-  "Drama",
-  "Family",
-  "Fantasy",
-  "Film-Noir",
-  "Game-Show",
-  "History",
-  "Horror",
-  "Music",
-  "Musical",
-  "Mystery",
-  "News",
-  "Reality-TV",
-  "Romance",
-  "Sci-Fi",
-  "Short",
-  "Sport",
-  "Talk-Show",
-  "Thriller",
-  "War",
-  "Western",
-];
-
-const mockGenres = [
-  {
-    id: 1,
-    genre: "Action",
-  },
-];
 
 export const NavigationBar = () => {
   // const [genres, setGen]
@@ -80,16 +42,18 @@ export const NavigationBar = () => {
           <DropdownMenuContent className="px-5 py-5 ">
             <DropdownMenuLabel>See lists of movies by genre</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex w-[577px] py-4 gap-4 flex-wrap ">
+            {/* <div className="flex w-[577px] py-4 gap-4 flex-wrap ">
               {genres.map((genre, i) => {
                 return (
-                  <DropdownMenuItem key={i} className="border-1 w-fit">
-                    <span>{genre}</span>
-                    <ChevronRightt />
-                  </DropdownMenuItem>
+                  <Link href={`/genre/${genre}`}>
+                    <DropdownMenuItem key={i} className="border-1 w-fit">
+                      <span>{genre}</span>
+                      <ChevronRightt />
+                    </DropdownMenuItem>
+                  </Link>
                 );
               })}
-            </div>
+            </div> */}
           </DropdownMenuContent>
         </DropdownMenu>
         <div className="flex items-center">
