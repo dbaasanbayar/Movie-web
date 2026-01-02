@@ -32,7 +32,7 @@ export const SimilarMoviesSuggestions = async ({
           </Button>
         </Link>
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-wrap gap-6">
         {similarMovies.slice(0, 5).map((movie: MovieType) => {
           return <Cards movie={movie} key={movie.id} />;
         })}

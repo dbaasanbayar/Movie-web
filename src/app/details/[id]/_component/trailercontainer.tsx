@@ -1,9 +1,22 @@
+import { axiosInstance } from "@/app/_components/functions";
+import { TrailerBox } from "@/app/details/[id]/_component/trailer-box";
 import { MovieType } from "@/lib/type";
-import { Button } from "@/components/ui/button";
-import { IconPlay } from "@/app/_components/assets/icon-play";
 
-export const TrailerContainer = ({ movieData }: { movieData: MovieType }) => {
-  const { backdrop_path, poster_path } = movieData;
+export const TrailerContainer = async ({
+  movieData,
+}: {
+  movieData: MovieType;
+}) => {
+  const { backdrop_path, poster_path, id } = movieData;
+
+  const response = await axiosInstance.get(
+    `/movie/${id}/videos?language=en-US`
+  );
+  const trailer =
+    response.data.results?.find(
+      (v: any) => v.type === "Trailer" && v.site === "YouTube"
+    ) || response.data.results?.find((v: any) => v.site === "YouTube");
+
   return (
     <div className="flex gap-[32px] w-full">
       <img
@@ -17,13 +30,7 @@ export const TrailerContainer = ({ movieData }: { movieData: MovieType }) => {
             src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
           />
         </div>
-        <div className="flex gap-3 absolute mb-[24px] ml-[24px] text-white items-center">
-          <Button>
-            <IconPlay />
-          </Button>
-          <p>Play trailer </p>
-          <p></p>
-        </div>
+        <TrailerBox trailer={trailer} />
       </div>
     </div>
   );

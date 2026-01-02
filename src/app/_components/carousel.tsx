@@ -24,7 +24,7 @@ export const CarouselMovie = async () => {
   return (
     <Carousel>
       <CarouselContent>
-        {movieCarousel.results.slice(0, 10).map((movie: MovieType) => {
+        {movieCarousel.results.slice(0, 5).map((movie: MovieType) => {
           return <CarouselCard key={movie.id} movie={movie} />;
         })}
       </CarouselContent>
