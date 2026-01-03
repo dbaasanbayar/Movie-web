@@ -1,4 +1,5 @@
 "use client";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,17 +10,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { IconMovie } from "./assets/icon-movie";
 import Link from "next/link";
 import { ArrowDownn } from "./assets/arrow-down";
 import { IconSearch } from "./assets/icon-search";
 import { IconMoon } from "./assets/icon-moon";
-import { ChevronRightt } from "./assets/chevron-right";
 
 export const NavigationBar = () => {
   // const [genres, setGen]
-
   // const getGenres =()=>{}
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState(initialQuery);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      if (query.trim()) {
+        router.push(`?q=${encodeURIComponent(query)}`);
+      } else {
+        router.replace("?");
+      }
+    }, 400); // debounce
+
+    return () => clearTimeout(delay);
+  }, [query, router]);
+
   return (
     <div className="h-[59px] flex justify-between items-center px-4">
       <Link
@@ -42,23 +59,16 @@ export const NavigationBar = () => {
           <DropdownMenuContent className="px-5 py-5 ">
             <DropdownMenuLabel>See lists of movies by genre</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <div className="flex w-[577px] py-4 gap-4 flex-wrap ">
-              {genres.map((genre, i) => {
-                return (
-                  <Link href={`/genre/${genre}`}>
-                    <DropdownMenuItem key={i} className="border-1 w-fit">
-                      <span>{genre}</span>
-                      <ChevronRightt />
-                    </DropdownMenuItem>
-                  </Link>
-                );
-              })}
-            </div> */}
           </DropdownMenuContent>
         </DropdownMenu>
         <div className="flex items-center">
           <IconSearch />
-          <Input className="relative pl-10" placeholder="Search.." />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="relative pl-10"
+            placeholder="Search.."
+          />
         </div>
       </div>
       <div>

@@ -35,9 +35,9 @@ export const TrailerBox = ({ trailer }: TrailerProps) => {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[80%] h-[60%] text-white bg-black p-0 overflow-hidden border-none">
-          {/* <DialogHeader>
-         <DialogTitle>{trailer?.name}</DialogTitle>
-          </DialogHeader> */}
+          <DialogHeader>
+            <DialogTitle>{trailer?.name}</DialogTitle>
+          </DialogHeader>
           <div className="flex items-center justify-center h-full">
             {trailer?.key && (
               <div className="w-full max-w-[900px] aspect-video">

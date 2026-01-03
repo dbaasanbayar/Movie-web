@@ -21,8 +21,8 @@ export const SimilarMoviesSuggestions = async ({
 
   return (
     <div>
-      <div className="flex justify-between items-center py-2">
-        <h2 className="text-[24px] text-[#09090B] font-[600] tracking-[-0.6px] leading-[32px]">
+      <div className="flex justify-between items-center">
+        <h2 className="text-[24px] text-[#09090B] font-[600] py-8 tracking-[-0.6px] leading-[32px]">
           More like this
         </h2>
         <Link href={`/details/${id}/similar`}>
@@ -32,21 +32,13 @@ export const SimilarMoviesSuggestions = async ({
           </Button>
         </Link>
       </div>
-      <div className="flex flex-wrap gap-6">
-        {similarMovies.slice(0, 5).map((movie: MovieType) => {
-          return <Cards movie={movie} key={movie.id} />;
-        })}
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+        {similarMovies.slice(0, 20).map((movie: MovieType) => (
+          <div key={movie.id}>
+            <Cards movie={movie} />
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-// color: var(--text-text-foreground, #09090B);
-
-// /* h3 */
-// font-family: Inter;
-// font-size: 24px;
-// font-style: normal;
-// font-weight: 600;
-// line-height: 32px; /* 133.333% */
-// letter-spacing: -0.6px;
