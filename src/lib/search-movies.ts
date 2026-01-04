@@ -1,11 +1,30 @@
 import { axiosInstance } from "@/app/_components/functions";
-import { MovieType } from "@/lib/type";
 
-export async function searchMovies(query: string): Promise<MovieType[]> {
-  if (!query) return [];
+export type Movie = {
+  id: number;
+  title: string;
+  posterUrl: string | null;
+};
 
-  const res = await axiosInstance.get(
-    `/search/movie?query=${query}&language=en-US&page=1`
-  );
-  return res.data.results;
+const IMAGE_BASE = "https://image.tmdb.org/t/p/";
+const POSTER_SIZE = "w92";
+
+export async function searchMovies(searchValue: string): Promise<Movie[]> {
+  if (!searchValue) return [];
+
+  const res = await axiosInstance.get("/search/movie", {
+    params: {
+      query: searchValue,
+      language: "en-US",
+      page: 1,
+    },
+  });
+
+  return res.data.results.map((movie: any) => ({
+    id: movie.id,
+    title: movie.title || movie.original_title,
+    posterUrl: movie.poster_path
+      ? `${IMAGE_BASE}${POSTER_SIZE}${movie.poster_path}`
+      : `${IMAGE_BASE}${POSTER_SIZE}${movie.backdrop_path}`,
+  }));
 }
