@@ -5,12 +5,13 @@ import { IconSearch } from "./assets/icon-search";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { searchMovies, Movie } from "@/lib/search-movies"; // from lib
+import { searchMovies, Movie } from "@/lib/search-movies";
+import Link from "next/link";
 
 export function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [movies, setMovies] = useState<Movie[]>([]); // api
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -135,18 +136,18 @@ export function SearchInput() {
             </p>
           )}
           <ul className="overflow-y-auto">
-            {filteredMovies.slice(0, 10).map((movie, index) => (
+            {filteredMovies.slice(0, 10).map((movie, id) => (
               <li
                 key={movie.id}
                 onClick={() => handleSelectMovie(movie)}
                 className={`cursor-pointer hover:font-semibold rounded px-2 py-1 hover:bg-muted ${
-                  highlightedIndex === index ? "bg-muted font-semibold" : ""
+                  highlightedIndex === id ? "bg-muted font-semibold" : ""
                 }`}
               >
                 <div className="flex gap-2 items-center">
-                  {movie.posterUrl ? (
+                  {movie.poster_path ? (
                     <img
-                      src={movie.posterUrl}
+                      src={movie.poster_path}
                       alt={`${movie.title}`}
                       className="w-12 h-16 object-cover rounded shadow-sm flex-shrink-0"
                       loading="lazy"
@@ -160,6 +161,12 @@ export function SearchInput() {
                 </div>
               </li>
             ))}
+            <Link href={"/searched-movies"}>
+              <div className="cursor-pointer hover:bg-muted">
+                See all results for{" "}
+                <span className="font-semibold">{searchValue}</span>
+              </div>
+            </Link>
           </ul>
         </Card>
       )}

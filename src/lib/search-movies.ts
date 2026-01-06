@@ -4,6 +4,9 @@ export type Movie = {
   id: number;
   title: string;
   posterUrl: string | null;
+  original_title: string;
+  poster_path: string;
+  backdrop_path: string;
 };
 
 const IMAGE_BASE = "https://image.tmdb.org/t/p/";
@@ -20,10 +23,10 @@ export async function searchMovies(searchValue: string): Promise<Movie[]> {
     },
   });
 
-  return res.data.results.map((movie: any) => ({
+  return res.data.results.map((movie: Movie) => ({
     id: movie.id,
     title: movie.title || movie.original_title,
-    posterUrl: movie.poster_path
+    poster_path: movie.poster_path
       ? `${IMAGE_BASE}${POSTER_SIZE}${movie.poster_path}`
       : `${IMAGE_BASE}${POSTER_SIZE}${movie.backdrop_path}`,
   }));
