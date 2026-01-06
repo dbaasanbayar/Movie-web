@@ -15,7 +15,6 @@ export function SearchInput() {
   const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Fetch movies (debounced)
   useEffect(() => {
     if (!searchValue) {
       setMovies([]);
@@ -37,11 +36,37 @@ export function SearchInput() {
 
     return () => clearTimeout(timeout);
   }, [searchValue]);
-  // Fetch movies (debounced)
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-  );
+  let filteredMovies = movies;
+  const value = searchValue.toLowerCase().trim();
+
+  if (value.length < 2) {
+    filteredMovies = [];
+  } else {
+    const prefixMatches = movies
+      .filter((movie) => movie.title.toLowerCase().startsWith(value))
+      .sort((a, b) => a.title.length - b.title.length);
+
+    const wordStartMatches = movies.filter(
+      (movie) =>
+        movie.title
+          .toLowerCase()
+          .split(" ")
+          .some((word) => word.startsWith(value)) &&
+        !movie.title.toLowerCase().startsWith(value)
+    );
+
+    const includesMatches = movies.filter(
+      (movie) =>
+        movie.title.toLowerCase().includes(value) &&
+        !movie.title.toLowerCase().startsWith(value)
+    );
+    filteredMovies = [
+      ...prefixMatches,
+      ...wordStartMatches,
+      ...includesMatches,
+    ];
+  }
 
   const handleSelectMovie = (movie: { id: number; title: string }) => {
     router.push(`/details/${movie.id}`);
@@ -97,7 +122,6 @@ export function SearchInput() {
           }
         }}
       />
-
       {searchValue && filteredMovies.length > 0 && (
         <Card className="absolute top-12 z-1 w-full p-2 shadow-lg">
           {loading && (
