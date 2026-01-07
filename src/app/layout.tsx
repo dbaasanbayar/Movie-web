@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="bg-white relative dark:bg-black text-black dark:text-white">
+        <div>
           <NavigationBar />
           {children}
           <Footer />
@@ -38,3 +38,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+// className="bg-white relative dark:bg-black text-black dark:text-white"

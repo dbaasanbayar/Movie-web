@@ -47,7 +47,6 @@ export function SearchInput() {
     const prefixMatches = movies
       .filter((movie) => movie.title.toLowerCase().startsWith(value))
       .sort((a, b) => a.title.length - b.title.length);
-
     const wordStartMatches = movies.filter(
       (movie) =>
         movie.title
@@ -98,7 +97,7 @@ export function SearchInput() {
     <div className="flex items-center relative w-full max-w-md">
       <IconSearch />
       <Input
-        className="relative pl-10"
+        className="relative pl-10 h-10"
         value={searchValue}
         placeholder="Search.."
         onChange={(e) => setSearchValue(e.target.value)}
