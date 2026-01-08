@@ -14,20 +14,18 @@ export const Cards = ({ movie }: { movie: MovieType }) => {
   const { poster_path, vote_average, title, id } = movie;
   return (
     <Link href={`/details/${id}`}>
-      <Card className="bg-amber-300 pt-0 pb-0 w-[230px] h-[439px] overflow-hidden">
-        <CardContent className="bg-gray-100 p-0 flex flex-col w-[230px] h-[439px] ">
-          <img
-            className="w-229.73 h-[340px]"
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          />
-          <div className="pl-2 flex flex-col p-2">
-            <div className="flex items-center gap-1">
+      <Card className="group rounded-lg hover:shadow-lg border overflow-hidden">
+        <CardContent className="p-0 flex flex-col h-full">
+          <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
+          <div className="p-2 flex flex-col gap-1">
+            <div className="flex items-center gap-1 text-sm">
               <IconStar />
-              <p>
-                <span>{vote_average}</span>/10
-              </p>
+              <span className="font-medium">{vote_average}</span>
+              <span className="text-muted-foreground">/10</span>
             </div>
-            <h1>{title}</h1>
+            <h3 className="font-semibold text-base line-clamp-2 leading-tight">
+              {title}
+            </h3>
           </div>
         </CardContent>
       </Card>

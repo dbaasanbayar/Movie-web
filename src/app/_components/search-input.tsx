@@ -10,24 +10,27 @@ import Link from "next/link";
 
 export function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
   const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!searchValue) {
       setMovies([]);
+      setHighlightedIndex(-1);
       return;
     }
 
     const timeout = setTimeout(async () => {
       try {
         setLoading(true);
-        const results = await searchMovies(searchValue);
-        console.log("Movie Coming:", results);
+        const results = await searchMovies(searchValue.trim());
         setMovies(results);
+        setHighlightedIndex(-1);
       } catch (error) {
         console.error(error);
       } finally {
@@ -68,11 +71,11 @@ export function SearchInput() {
     ];
   }
 
-  const handleSelectMovie = (movie: { id: number; title: string }) => {
+  const handleSelectMovie = (movie: Movie) => {
     router.push(`/details/${movie.id}`);
     setSearchValue("");
-    console.log("Selected movie:", movie.id);
     setHighlightedIndex(-1);
+    inputRef.current?.blur();
   };
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -94,12 +97,13 @@ export function SearchInput() {
   }, [searchValue]);
 
   return (
-    <div className="flex items-center relative w-full max-w-md">
-      <IconSearch />
+    <div ref={wrapperRef} className="relative w-full max-w-md">
+      {/* <IconSearch /> */}
       <Input
-        className="relative pl-10 h-10"
+        className="relative w-full h-10"
         value={searchValue}
-        placeholder="Search.."
+        autoComplete="off"
+        placeholder="Search..."
         onChange={(e) => setSearchValue(e.target.value)}
         onKeyDown={(e) => {
           if (filteredMovies.length === 0) return;
@@ -123,7 +127,7 @@ export function SearchInput() {
         }}
       />
       {searchValue && filteredMovies.length > 0 && (
-        <Card className="absolute top-12 z-1 w-full p-2 shadow-lg">
+        <Card className="absolute top-12 z-1 w-full p-2 bg-background border shadow-lg">
           {loading && (
             <p className="px-2 py-1 text-sm text-muted-foreground">
               Loading...

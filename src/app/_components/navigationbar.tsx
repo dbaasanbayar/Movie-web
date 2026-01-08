@@ -30,7 +30,6 @@ export const NavigationBar = () => {
       try {
         const res = await axiosInstance.get(`/genre/movie/list?language=en`);
         setGenres(res.data.genres);
-        console.log("data awah", res.data.genres);
       } catch (error) {
         console.error("Failed to fetch genres", error);
       }
@@ -39,33 +38,31 @@ export const NavigationBar = () => {
   }, []);
 
   return (
-    <div className="h-[59px] flex justify-between items-center px-4">
+    <div className="h-[59px] flex justify-between items-center px-2 bg-background border-b">
       <Link
-        className={`cursor-pointer p-1 rounded hover:bg-gray-200`}
+        className={`flex items-center gap-2 cursor-pointer p-1 rounded-md  hover:bg-accent transition-colors`}
         href={"/"}
       >
         <div className="flex items-center gap-2">
           <IconMovie />
-          <h2 className="text-[16px] font-inter leading-[20px] tracking-[0.32px] text-[#4338CA] font-[700]">
-            Movie Z
-          </h2>
+          <h2 className="text-lg font-bold  text-[#4338CA]">Movie Z</h2>
         </div>
       </Link>
-      <div className="flex gap-3 items-center">
+      <div className="flex gap-4 items-center">
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-2 h-10 px-4 rounded-md border">
+          <DropdownMenuTrigger className="flex items-center gap-1 py-2 px-2 rounded-md border">
             <ArrowDownn />
             <span>Genre</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="px-5 py-5 w-auto max-w-sm sm:max-w-md lg:max-w-lg">
             <DropdownMenuLabel>See lists of movies by genre</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 ">
               {genres.map((genre) => (
-                <Link key={genre.id} href={`/genre/${genre.name}`}>
-                  <Button className="hover:bg-muted flex-none">
+                <Link key={genre.id} href={`/genre/${genre.id}`}>
+                  <DropdownMenuItem className="hover:bg-muted border">
                     {genre.name}
-                  </Button>
+                  </DropdownMenuItem>
                 </Link>
               ))}
             </div>
@@ -73,10 +70,11 @@ export const NavigationBar = () => {
         </DropdownMenu>
         <SearchInput />
       </div>
-      <div>
+      <div className="w-10 h-10 rounded-full">
         <Button
+          size="icon"
           // onClick={() => document.documentElement.classList.toggle("dark")}
-          className="w-[36px] cursor-pointer"
+          className="cursor-pointer"
         >
           <IconMoon />
         </Button>
