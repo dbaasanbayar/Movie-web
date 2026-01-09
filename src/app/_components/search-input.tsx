@@ -13,10 +13,19 @@ export function SearchInput() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [inputWidth, setInputWidth] = useState(160); // 160 default min width
 
+  // const scrollRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // useEffect(() => {
+  //   if (scrollRef.current) {
+  //     const newWidth = Math.max(160, scrollRef.current.offsetWidth + 30);
+  //     setInputWidth(newWidth);
+  //   }
+  // }, [searchValue]);
 
   useEffect(() => {
     if (!searchValue) {
@@ -97,10 +106,17 @@ export function SearchInput() {
   }, [searchValue]);
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-md">
+    <div ref={wrapperRef} className="relative inline-block">
+      {/* <span
+        aria-hidden="true"
+        ref={scrollRef}
+        className="absolute invisible whitespace-pre px-3 text-sm font-medium"
+      >
+        {searchValue || "Search..."}
+      </span> */}
       {/* <IconSearch /> */}
       <Input
-        className="relative w-full h-10"
+        className="w-full h-10"
         value={searchValue}
         autoComplete="off"
         placeholder="Search..."
