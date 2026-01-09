@@ -10,7 +10,7 @@ const MovieDetails = async ({ params }: idProps) => {
   const response = await axiosInstance.get(`/movie/${id}?language=en-US`);
   const movieData = response.data;
   return (
-    <div className="pl-[180px] w-full pr-[180px] flex flex-col gap-6">
+    <div className="w-full flex flex-col gap-6 px-4 sm:px-8 md:px-16 lg:px-24">
       <MoviePageHeader movieData={movieData} />
       <TrailerContainer movieData={movieData} />
       <MovieGenre movieData={movieData} />

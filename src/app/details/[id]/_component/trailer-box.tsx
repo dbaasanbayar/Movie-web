@@ -23,34 +23,32 @@ interface TrailerProps {
 
 export const TrailerBox = ({ trailer }: TrailerProps) => {
   return (
-    <div className="flex gap-3 absolute mb-[24px] ml-[24px] text-white items-center bg-black/40 p-2 rounded-xl backdrop-blur-sm">
+    <div className="flex gap-2 absolute bottom-3 left-3 sm:bottom-5 sm:left-5 text-white items-center sm:gap-3 bg-black/40 px-3 py-2 rounded-xl backdrop-blur-sm">
       <Dialog>
         <DialogTrigger asChild>
           <Button
-            className="rounded-full cursor-pointer"
+            className="rounded-full hover:scale-105 transition"
             size="icon"
-            variant="outline"
-          >
+            variant="outline">
             <IconPlay />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[80%] h-[60%] text-white bg-black p-0 overflow-hidden border-none">
+        <DialogContent className="w-[95vw] max-w-[1000px] h-[60vh] sm:h-[70vh] text-white bg-black p-3 sm:p-4 border-none">
           <DialogHeader>
-            <DialogTitle>{trailer?.name}</DialogTitle>
+            <DialogTitle className="text-sm sm:text-base">
+              {trailer?.name}
+            </DialogTitle>
           </DialogHeader>
           <div className="flex items-center justify-center h-full">
             {trailer?.key && (
-              <div className="w-full max-w-[900px] aspect-video">
+              <div className="w-full aspect-video max-w-[960px]">
                 <LiteYouTubeEmbed id={trailer.key} title={trailer.name} />
               </div>
             )}
           </div>
-          {/* {trailer?.key && (
-            <LiteYouTubeEmbed id={trailer?.key} title={trailer?.name} />
-          )} */}
         </DialogContent>
       </Dialog>
-      <p className="font-semibold">Play trailer </p>
+      <p className="hidden sm:block text-sm font-semibold">Play trailer </p>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, use } from "react";
 import { IconSearch } from "./assets/icon-search";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -13,19 +13,11 @@ export function SearchInput() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [inputWidth, setInputWidth] = useState(160); // 160 default min width
 
-  // const scrollRef = useRef<HTMLSpanElement>(null);
   const router = useRouter();
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  // useEffect(() => {
-  //   if (scrollRef.current) {
-  //     const newWidth = Math.max(160, scrollRef.current.offsetWidth + 30);
-  //     setInputWidth(newWidth);
-  //   }
-  // }, [searchValue]);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
 
   useEffect(() => {
     if (!searchValue) {
@@ -79,6 +71,50 @@ export function SearchInput() {
       ...includesMatches,
     ];
   }
+  // useEffect(() => {
+  //   if (!listRef.current || !inputRef.current) return;
+
+  //   const maxWidth = 375;
+  //   const minWidth = 160;
+
+  //   let widest = 0;
+
+  //   const items = listRef.current.querySelectorAll("li");
+
+  //   items.forEach((li: any) => {
+  //     widest = Math.max(widest, li.scrollWidth);
+  //   });
+
+  //   const padding = 40;
+  //   const finalWidth = Math.min(Math.max(widest + padding, minWidth), maxWidth);
+
+  //   inputRef.current.style.width = `${finalWidth}px`;
+  //   wrapperRef.current.style.width = `${finalWidth}px`;
+  // }, [filteredMovies, searchValue]);
+  useEffect(() => {
+    const listEl = listRef.current;
+    const inputEl = inputRef.current;
+    const wrapperEl = wrapperRef.current;
+
+    if (!listEl || !inputEl || !wrapperEl) return;
+
+    const maxWidth = 375;
+    const minWidth = 160;
+
+    let widest = 0;
+
+    const items = listEl.querySelectorAll("li");
+
+    items.forEach((li) => {
+      widest = Math.max(widest, li.scrollWidth);
+    });
+
+    const padding = 40;
+    const finalWidth = Math.min(Math.max(widest + padding, minWidth), maxWidth);
+
+    inputEl.style.width = `${finalWidth}px`;
+    wrapperEl.style.width = `${finalWidth}px`;
+  }, [filteredMovies, searchValue]);
 
   const handleSelectMovie = (movie: Movie) => {
     router.push(`/details/${movie.id}`);
@@ -106,17 +142,11 @@ export function SearchInput() {
   }, [searchValue]);
 
   return (
-    <div ref={wrapperRef} className="relative inline-block">
-      {/* <span
-        aria-hidden="true"
-        ref={scrollRef}
-        className="absolute invisible whitespace-pre px-3 text-sm font-medium"
-      >
-        {searchValue || "Search..."}
-      </span> */}
+    <div ref={wrapperRef} className="relative transition-all duration-200">
       {/* <IconSearch /> */}
       <Input
-        className="w-full h-10"
+        ref={inputRef}
+        className="relative h-10 transition-all duration-200"
         value={searchValue}
         autoComplete="off"
         placeholder="Search..."
@@ -154,15 +184,14 @@ export function SearchInput() {
               No results found
             </p>
           )}
-          <ul className="overflow-y-auto">
+          <ul ref={listRef} className="overflow-y-auto">
             {filteredMovies.slice(0, 10).map((movie, id) => (
               <li
                 key={movie.id}
                 onClick={() => handleSelectMovie(movie)}
                 className={`cursor-pointer hover:font-semibold rounded px-2 py-1 hover:bg-muted ${
                   highlightedIndex === id ? "bg-muted font-semibold" : ""
-                }`}
-              >
+                }`}>
                 <div className="flex gap-2 items-center">
                   {movie.poster_path ? (
                     <img

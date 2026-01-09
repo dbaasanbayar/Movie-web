@@ -18,19 +18,23 @@ export const TrailerContainer = async ({
     ) || response.data.results?.find((v: any) => v.site === "YouTube");
 
   return (
-    <div className="flex gap-[32px] w-full">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full items-stretch">
       <img
-        className="w-[30%] h-[428px]"
+        className="w-full sm:w-[260px] lg:w-[300px] h-auto object-cover rounded-md shadow"
         src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        alt="Poster"
+        loading="lazy"
       />
-      <div className="w-[70%] flex items-end relative">
-        <div>
-          <img
-            className="h-[428px]"
-            src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-          />
+      <div className=" flex-1 relative">
+        <img
+          className="w-full h-full object-cover rounded-md"
+          src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+          alt="Backdrop"
+          loading="lazy"
+        />
+        <div className="absolute inset-1 flex flex-col justify-end">
+          <TrailerBox trailer={trailer} />
         </div>
-        <TrailerBox trailer={trailer} />
       </div>
     </div>
   );

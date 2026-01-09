@@ -14,25 +14,30 @@ export const CarouselCard = ({ movie }: { movie: MovieType }) => {
   const { poster_path, overview, vote_average, title, backdrop_path } = movie;
   return (
     <CarouselItem>
-      <div className="flex gap-[10px] relative text-white  ">
+      <div className="relative text-white  ">
         <img
-          className="bg-cover w-full h-[600px]"
+          className="object-cover h-[220px] sm:h=[320px] md:h-[420px] w-full"
           src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+          alt={title}
         />
-        <div className="absolute flex flex-col ml-[140px] gap-[16px] w-[404px] py-20">
-          <div>
-            <p>Now Playing</p>
-            <h2 className="font-[700] text-[36px]">{title}</h2>
-            <p className="flex gap-1 items-center">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+          <div className="absolute inset-0 flex flex-col justify-end px-4 py-4 sm:px-8 sm:py-8 gap-1">
+            <p className="text-xs sm:text-sm opacity-80">Now Playing</p>
+            <h2 className="font-bold text-lg sm:text-2xl md:text-3xl line-clamp-2">
+              {title}
+            </h2>
+            <p className="flex items-center gap-1 text-sm sm:text-base">
               <IconStar />
               {vote_average}/10
             </p>
+            <p className="text-xs sm:text-sm md:text-base line-clamp-3 max-w-2xl">
+              {overview}
+            </p>
+            <Button className="text-black w-fit gap-2">
+              <IconPlay />
+              Watch trailer
+            </Button>
           </div>
-          <p>{overview}</p>
-          <Button className="text-black w-[145px]">
-            <IconPlay />
-            Watch trailer
-          </Button>
         </div>
       </div>
     </CarouselItem>

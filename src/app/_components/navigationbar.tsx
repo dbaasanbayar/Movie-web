@@ -41,8 +41,7 @@ export const NavigationBar = () => {
     <div className="h-[59px] flex justify-between items-center px-2 bg-background border-b">
       <Link
         className={`flex items-center gap-2 cursor-pointer p-1 rounded-md  hover:bg-accent transition-colors`}
-        href={"/"}
-      >
+        href={"/"}>
         <div className="flex items-center gap-2">
           <IconMovie />
           <h2 className="text-lg font-bold  text-[#4338CA]">Movie Z</h2>
@@ -74,8 +73,7 @@ export const NavigationBar = () => {
         <Button
           size="icon"
           // onClick={() => document.documentElement.classList.toggle("dark")}
-          className="cursor-pointer"
-        >
+          className="cursor-pointer">
           <IconMoon />
         </Button>
       </div>
