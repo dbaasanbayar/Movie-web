@@ -19,13 +19,3 @@ const MovieDetails = async ({ params }: idProps) => {
   );
 };
 export default MovieDetails;
-
-//server client
-//Vercel, Hereglegchiin Pc-Utas
-//
-
-// Asynchronus ->
-
-// console.log("1")
-// await console.log("2")
-// console.log("3")

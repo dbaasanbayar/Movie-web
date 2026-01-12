@@ -14,17 +14,26 @@ export const PopularMovie = async () => {
   };
   const PopularMovieResults = await PopularMovies();
   return (
-    <div>
-      <div className="flex justify-between items-center mt-[44px] mb-[32px] ">
-        <h2 className="text-[24px] font-semibold ">Popular</h2>
+    <div className="w-full">
+      <div className="flex items-center gap-2 justify-between mt-8 mb-6 md:mt-10 md:mb-8 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl md:text-3xl font-semibold">Popular</h2>
         <Link href={"/popular"}>
-          <Button>
+          <Button
+            variant={"outline"}
+            className="flex items-center gap-2 px-5 py-2 text-sm md:text-base"
+          >
             See more
             <ArrowRigth />
           </Button>
         </Link>
       </div>
-      <div className="flex flex-wrap gap-8 ">
+      <div
+        className="grid grid-cols-2 gap-4 px-4 sm:px-6 lg:px-8
+                      sm:grid-cols-3 
+                      md:grid-cols-4 
+                      lg:grid-cols-5 
+                      xl:grid-cols-5 2xl:grid-cols-6"
+      >
         {PopularMovieResults.results.splice(5, 10).map((movie: MovieType) => {
           return <Cards key={movie.id} movie={movie} />;
         })}

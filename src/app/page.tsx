@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <CarouselMovie />
-      <div className="pl-[80] pr-[80px]">
+      <div className="px-20">
         <UpComingMovie />
         <PopularMovie />
         <TopRatedMovie />

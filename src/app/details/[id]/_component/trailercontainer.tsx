@@ -21,14 +21,14 @@ export const TrailerContainer = async ({
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 w-full items-stretch">
       <img
         className="w-full sm:w-[260px] lg:w-[300px] h-auto object-cover rounded-md shadow"
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+        src={`https://image.tmdb.org/t/p/original${poster_path}`}
         alt="Poster"
         loading="lazy"
       />
       <div className=" flex-1 relative">
         <img
           className="w-full h-full object-cover rounded-md"
-          src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           alt="Backdrop"
           loading="lazy"
         />

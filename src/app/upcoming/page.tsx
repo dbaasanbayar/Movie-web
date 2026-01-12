@@ -18,27 +18,46 @@ export default async function UpComingMoviesPage({
   const upcomingMovies: MovieType[] = response.data.results;
   const totalPages = response.data.total_pages;
   return (
-    <div className="flex flex-col mx-auto gap-8 px-[80px]">
-      <h2 className="text-[#09090B] font-inter text-[30px] font-semibold leading-[36px] tracking-[-0.75px]">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 xl:px-10 py-8 md:py-12 mx-auto max-w-7xl">
+      <h2 className="text-3xl sm:text-4xl font-semibold text-[#09090B] mb-8 md:mb-10 tracking-tight">
         Upcoming movies
       </h2>
-      <div className="flex flex-wrap gap-2">
-        {upcomingMovies.slice(0, 10).map((movie) => {
+      <div
+        className="
+          grid 
+          grid-cols-2      
+          gap-4 sm:gap-6    
+          sm:grid-cols-3    
+          md:grid-cols-3     
+          lg:grid-cols-4     
+          xl:grid-cols-5     
+          2xl:grid-cols-6    
+        "
+      >
+        {upcomingMovies.map((movie) => {
           return <Cards movie={movie} key={movie.id} />;
         })}
       </div>
       {totalPages > 1 && (
-        <div className="flex justify-end items-center gap-6 mt-12">
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-4 sm:gap-6 mt-10 md:mt-12">
           <Link href={`/upcoming?page=${currentPage - 1}`}>
-            <Button disabled={currentPage === 1} variant="outline">
+            <Button
+              disabled={currentPage === 1}
+              variant="outline"
+              className="w-full sm:w-auto min-w-[120px]"
+            >
               Previous
             </Button>
           </Link>
-          <span className="text-lg font-medium">
+          <span className="text-base sm:text-lg font-medium text-muted-foreground">
             Page {currentPage} of {totalPages}
           </span>
           <Link href={`/upcoming?page=${currentPage + 1}`}>
-            <Button disabled={currentPage === totalPages} variant="outline">
+            <Button
+              className="w-full sm:w-auto min-w-[120px]"
+              disabled={currentPage === totalPages}
+              variant="outline"
+            >
               Next
             </Button>
           </Link>

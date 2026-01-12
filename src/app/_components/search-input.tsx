@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState, useRef, use } from "react";
-import { IconSearch } from "./assets/icon-search";
+import { useEffect, useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { searchMovies, Movie } from "@/lib/search-movies";
+import { searchMovies } from "@/lib/search-movies";
 import Link from "next/link";
+import { MovieType } from "@/lib/type";
 
 export function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
@@ -71,26 +71,6 @@ export function SearchInput() {
       ...includesMatches,
     ];
   }
-  // useEffect(() => {
-  //   if (!listRef.current || !inputRef.current) return;
-
-  //   const maxWidth = 375;
-  //   const minWidth = 160;
-
-  //   let widest = 0;
-
-  //   const items = listRef.current.querySelectorAll("li");
-
-  //   items.forEach((li: any) => {
-  //     widest = Math.max(widest, li.scrollWidth);
-  //   });
-
-  //   const padding = 40;
-  //   const finalWidth = Math.min(Math.max(widest + padding, minWidth), maxWidth);
-
-  //   inputRef.current.style.width = `${finalWidth}px`;
-  //   wrapperRef.current.style.width = `${finalWidth}px`;
-  // }, [filteredMovies, searchValue]);
   useEffect(() => {
     const listEl = listRef.current;
     const inputEl = inputRef.current;
@@ -116,7 +96,7 @@ export function SearchInput() {
     wrapperEl.style.width = `${finalWidth}px`;
   }, [filteredMovies, searchValue]);
 
-  const handleSelectMovie = (movie: Movie) => {
+  const handleSelectMovie = (movie: MovieType) => {
     router.push(`/details/${movie.id}`);
     setSearchValue("");
     setHighlightedIndex(-1);
@@ -142,11 +122,19 @@ export function SearchInput() {
   }, [searchValue]);
 
   return (
-    <div ref={wrapperRef} className="relative transition-all duration-200">
-      {/* <IconSearch /> */}
+    <div
+      ref={wrapperRef}
+      className={`relative transition-all duration-200 
+    w-[160px] 
+    min-[375px]:w-[200px] 
+    sm:w-[260px] 
+    md:w-[320px] 
+    max-w-full
+   `}
+    >
       <Input
         ref={inputRef}
-        className="relative h-10 transition-all duration-200"
+        className="relative h-10 w-full max-w-md"
         value={searchValue}
         autoComplete="off"
         placeholder="Search..."
@@ -173,7 +161,7 @@ export function SearchInput() {
         }}
       />
       {searchValue && filteredMovies.length > 0 && (
-        <Card className="absolute top-12 z-1 w-full p-2 bg-background border shadow-lg">
+        <Card className="absolute top-12 z-50 w-full p-2 bg-background border shadow-lg">
           {loading && (
             <p className="px-2 py-1 text-sm text-muted-foreground">
               Loading...
@@ -191,7 +179,8 @@ export function SearchInput() {
                 onClick={() => handleSelectMovie(movie)}
                 className={`cursor-pointer hover:font-semibold rounded px-2 py-1 hover:bg-muted ${
                   highlightedIndex === id ? "bg-muted font-semibold" : ""
-                }`}>
+                }`}
+              >
                 <div className="flex gap-2 items-center">
                   {movie.poster_path ? (
                     <img
@@ -209,10 +198,13 @@ export function SearchInput() {
                 </div>
               </li>
             ))}
-            <Link href={"/searched-movies"}>
-              <div className="cursor-pointer hover:bg-muted">
-                See all results for{" "}
-                <span className="font-semibold">{searchValue}</span>
+            <Link
+              href={`/searched-movies?query=${encodeURIComponent(searchValue)}`}
+              onClick={() => setSearchValue("")}
+            >
+              <div className="cursor-pointer hover:bg-muted px-2 py-1">
+                See all results for
+                <span className="font-semibold ml-1">{searchValue}</span>
               </div>
             </Link>
           </ul>

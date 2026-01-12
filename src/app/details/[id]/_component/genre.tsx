@@ -24,7 +24,8 @@ export async function MovieGenre({ movieData }: { movieData: MovieType }) {
           return (
             <span
               className="border text-xs sm:text-sm bg-muted/40 whitespace-nowrap rounded-full px-3 py-1"
-              key={genre.id}>
+              key={genre.id}
+            >
               {genre.name}
             </span>
           );
@@ -57,7 +58,7 @@ function InfoRow({ label, values }: { label: string; values: string[] }) {
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-1">
       <span className="font-semibold">{label}:</span>
-      <span className="text-muted-foreground">{values.join(", ")}</span>
+      <span className="text-muted-foreground">{values.join()}</span>
     </div>
   );
 }

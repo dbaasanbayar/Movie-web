@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-interface TrailerProps {
+export interface TrailerProps {
   trailer?: {
     key: string;
     name: string;
@@ -29,11 +29,12 @@ export const TrailerBox = ({ trailer }: TrailerProps) => {
           <Button
             className="rounded-full hover:scale-105 transition"
             size="icon"
-            variant="outline">
+            variant="outline"
+          >
             <IconPlay />
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-[95vw] max-w-[1000px] h-[60vh] sm:h-[70vh] text-white bg-black p-3 sm:p-4 border-none">
+        <DialogContent className="w-[95vw] flex flex-col justify-center max-w-[1000px] h-[60vh] sm:h-[70vh] text-white bg-black p-3 sm:p-4 border-none">
           <DialogHeader>
             <DialogTitle className="text-sm sm:text-base">
               {trailer?.name}
